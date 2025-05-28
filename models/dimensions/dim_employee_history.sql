@@ -1,4 +1,4 @@
-{{ config(materialized="incremental", unique_key=["employee_id", "valid_from"]) }}
+{{ config(materialized="incremental", unique_key=["employee_id", "valid_from"], on_schema_change="sync_all_columns") }}
 
 select
     employee_id,
