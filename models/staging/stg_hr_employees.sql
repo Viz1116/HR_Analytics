@@ -22,7 +22,7 @@ employee as (
         emp.hire_date,
         emp.manager_id,
         emp.salary,
-        jobs.job_title,
+        emp.job_id,
         dept.department_name,
         current_timestamp as created_when
         from emp
