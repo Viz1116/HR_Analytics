@@ -1,7 +1,4 @@
-{{ config(
-    materialized='view',
-    on_schema_change="sync_all_columns"
-) }}
+{{ config(materialized="view", on_schema_change="sync_all_columns") }}
 
 select
     employee_id,
@@ -17,5 +14,5 @@ select
     dbt_valid_from as valid_from,
     dbt_valid_to as valid_to,
     true as is_current
-from {{ ref('employee_snapshot') }}
+from {{ ref("employee_snapshot") }}
 where dbt_valid_to is null
