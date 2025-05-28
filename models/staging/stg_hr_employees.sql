@@ -15,7 +15,7 @@ with
             emp.manager_id,
             emp.salary,
             emp.job_id,
-            dept.department_id,
+            emp.department_id,
             dept.department_name,
             current_timestamp as created_when
         from emp
