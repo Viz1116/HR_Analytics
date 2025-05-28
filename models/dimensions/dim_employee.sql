@@ -1,17 +1,21 @@
-{{ config(materialized="view") }}
+{{ config(
+    materialized='view',
+    on_schema_change="sync_all_columns"
+) }}
 
 select
     employee_id,
     first_name,
     last_name,
-    department,
-    hire_date,
+    email,
     phone_number,
+    hire_date,
     manager_id,
-    job_id,
     salary,
-    valid_from,
-    valid_to,
-    current_flag
-from {{ ref('dim_employee_history') }}
-where valid_to = '9999-12-31'
+    job_id,
+    department_name,
+    dbt_valid_from as valid_from,
+    dbt_valid_to as valid_to,
+    true as is_current
+from {{ ref('employee_snapshot') }}
+where dbt_valid_to is null

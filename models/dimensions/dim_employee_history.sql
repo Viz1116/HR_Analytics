@@ -1,28 +1,20 @@
-{{
-    config(
-        materialized="incremental",
-        on_schema_change="sync_all_columns"
-    )
-}}
-
-with
-    latest_records as (
-        select * from {{ ref("employee_snapshot") }}
-    -- where dbt_valid_to is null
-    )
+{{ config(
+    materialized='incremental',
+    unique_key='employee_id || '-' || dbt_valid_from'  -- Make unique per version
+) }}
 
 select
     employee_id,
     first_name,
     last_name,
-    department_name as department,
-    hire_date,
+    email,
     phone_number,
+    hire_date,
     manager_id,
-    job_id,
     salary,
+    job_id,
+    department_name,
     dbt_valid_from as valid_from,
-    coalesce(dbt_valid_to, '9999-12-31') as valid_to,
-    created_when,
-    case when dbt_valid_to is null then 'true' else 'false' end as current_flag
-from latest_records
+    dbt_valid_to as valid_to,
+    case when dbt_valid_to is null then true else false end as is_current
+from {{ ref('employee_snapshot') }}
