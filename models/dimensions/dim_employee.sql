@@ -1,21 +1,17 @@
-{{ config(materialized='incremental', unique_key='employee_id') }}
-
-with latest_records as (
-    select *
-    from {{ ref('employee_snapshot') }}
-    where dbt_valid_to is null
-)
+{{ config(materialized="view") }}
 
 select
     employee_id,
     first_name,
     last_name,
-    department_name as department,
+    department,
     hire_date,
     phone_number,
     manager_id,
+    job_id,
     salary,
-    dbt_valid_from as valid_from,
-    coalesce(dbt_valid_to, '9999-12-31') as valid_to,
-    true as is_current
-from latest_records
+    valid_from,
+    valid_to,
+    current_flag
+from {{ ref('dim_employee_history') }}
+where valid_to = '9999-12-31'
