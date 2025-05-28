@@ -1,4 +1,6 @@
-{{ config(materialized='incremental', unique_key='employee_id') }}
+{{ config(materialized='incremental', 
+        unique_key='employee_id',
+        on_schema_change='sync_all_columns') }}
 
 with latest_records as (
     select *
