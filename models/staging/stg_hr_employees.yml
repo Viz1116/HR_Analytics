@@ -1,0 +1,14 @@
+models:
+  - name: stg_hr_employees
+    description: "Cleaned and transformed employee data from HR source"
+    columns:
+      - name: employee_id
+        description: "Unique employee identifier"
+        tests:
+          - not_null
+          - unique
+      - name: hire_date
+        tests:
+          - not_null
+      - name: department
+        description: "Department name or 'Unknown' if null"

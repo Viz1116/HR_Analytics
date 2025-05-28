@@ -1,0 +1,9 @@
+sources:
+  - name: HR_DATA
+    database: DBT_DB  # Replace with your Snowflake DB
+    schema: DATALAKE
+    tables:
+      - name: HR_EMPLOYEES
+      - name: HR_JOBS
+      - name: HR_DEPARTMENTS
+      - name: HR_JOB_HISTORY
