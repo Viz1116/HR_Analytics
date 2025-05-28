@@ -5,7 +5,7 @@
 with latest_records as (
     select *
     from {{ ref('employee_snapshot') }}
-    where dbt_valid_to is null
+    --where dbt_valid_to is null
 )
 
 select
