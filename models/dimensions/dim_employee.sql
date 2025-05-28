@@ -16,6 +16,7 @@ select
     hire_date,
     phone_number,
     manager_id,
+    job_title,
     salary,
     dbt_valid_from as valid_from,
     coalesce(dbt_valid_to, '9999-12-31') as valid_to,

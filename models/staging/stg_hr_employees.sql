@@ -7,6 +7,9 @@ with emp as (
     ),
     dept as (
     SELECT * FROM {{source ('HR_DATA', 'HR_DEPARTMENTS') }}
+    ),
+    jobs as (
+    SELECT * FROM {{source ('HR_DATA', 'HR_JOBS') }}
     )
 ,
 employee as (
@@ -19,10 +22,12 @@ employee as (
         emp.hire_date,
         emp.manager_id,
         emp.salary,
+        jobs.job_title,
         dept.department_name,
         current_timestamp as created_when
         from emp
         left join dept on emp.department_id = dept.DEPARTMENT_ID
+        left join jobs on emp.job_id = jobs.job_id
     --where _fivetran_deleted = false  -- exclude deleted records
 )
 select * from employee
