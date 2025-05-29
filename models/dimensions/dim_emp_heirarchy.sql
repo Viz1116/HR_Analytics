@@ -20,4 +20,4 @@ select
     split_part(hierarchy_path_emp_id, '/', 8) as level_7_id,
     split_part(hierarchy_path, '/', 8) as level_7_name
 from {{ ref("dim_org_hierarchy") }}
-where level_1 = 1000
+where split_part(hierarchy_path_emp_id, '/', 2) = 1000
