@@ -1,8 +1,9 @@
-{{ config(materialized="view") }}
+{{ config(materialized="view", on_schema_change="sync_all_columns") }}
 
 select
     employee_id,
-    manager_id,
+    manager_id as direct_manager_id,
+    level as reporting_level,
     hierarchy_path,
     hierarchy_path_emp_id,
     split_part(hierarchy_path_emp_id, '/', 2) as level_1_id,
