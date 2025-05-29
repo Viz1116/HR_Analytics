@@ -21,4 +21,3 @@ select
     split_part(hierarchy_path, '/', 8) as level_7_name
 from {{ ref("dim_org_hierarchy") }}
 where level_1 = 1000
-;
